@@ -1,0 +1,30 @@
+[
+    {
+        "source": "192.168.1.10",
+        "destination": "192.168.1.20",
+        "protocol": "Modbus",
+        "action": "allow"
+    },
+    {
+        "source": "192.168.1.152",
+        "destination": "192.168.1.25",
+        "protocol": "DNP3",
+        "action": "block"
+    },
+    {
+        "rule_id": "block_nmap_scan",
+        "description": "Blocks Nmap scan patterns",
+        "protocol": "TCP",
+        "scan_patterns": [
+            "SYN",
+            "ACK"
+        ],
+        "threshold": {
+            "time_window": 10,
+            "max_attempts": 5
+        },
+        "action": "BLOCK",
+        "source": "",
+        "destination": ""
+    }
+]

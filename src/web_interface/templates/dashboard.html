@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Firewall Dashboard</h1>
+    <h2>Logs</h2>
+    <table>
+        <tr><th>Zaman</th><th>Olay</th></tr>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for('config') }}">Ayarlar</a>
+</body>
+</html>

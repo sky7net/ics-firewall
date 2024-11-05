@@ -1,0 +1,3 @@
+2024-11-04 14:30:25 - Paket incelemesi başarılı.
+2024-11-04 14:30:26 - Firewall kuralı ihlal edildi: IP bloklandı.
+2024-11-04 14:30:27 - Yeni kural eklendi: IP adresi beyaz listeye alındı.

@@ -1,0 +1,4 @@
+{
+    "firewall_name": "ICS Firewall",
+    "log_level": "INFO"
+}

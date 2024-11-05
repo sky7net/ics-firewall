@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Config Settings</title>
+</head>
+<body>
+    <h1>Config Ayarları</h1>
+    <form method="post" action="/config">
+        <!-- Genel Ayarlar -->
+        <label for="firewall_name">Firewall Adı:</label>
+        <input type="text" name="firewall_name" value="{{ config['firewall_name'] }}"><br>
+
+        <label for="log_level">Log Seviyesi:</label>
+        <input type="text" name="log_level" value="{{ config['log_level'] }}"><br>
+
+        <!-- Kurallar için Dinamik Alanlar -->
+        <h2>Kurallar</h2>
+        {% for rule in rules %}
+        <div>
+            <h3>Kural {{ loop.index }}</h3>
+            
+            {% if rule.rule_id in immutable_rule_ids %}
+                <!-- Değiştirilemez kurallar sadece okunabilir -->
+                <label>Kaynak IP:</label>
+                <input type="text" value="{{ rule.source }}" readonly><br>
+
+                <label>Hedef IP:</label>
+                <input type="text" value="{{ rule.destination }}" readonly><br>
+
+                <label>Protokol:</label>
+                <input type="text" value="{{ rule.protocol }}" readonly><br>
+
+                <label>İşlem:</label>
+                <input type="text" value="{{ rule.action }}" readonly><br>
+            {% else %}
+                <!-- Güncellenebilir kurallar -->
+                <label for="source_{{ loop.index }}">Kaynak IP:</label>
+                <input type="text" name="source_{{ loop.index }}" value="{{ rule.source }}"><br>
+
+                <label for="destination_{{ loop.index }}">Hedef IP:</label>
+                <input type="text" name="destination_{{ loop.index }}" value="{{ rule.destination }}"><br>
+
+                <label for="protocol_{{ loop.index }}">Protokol:</label>
+                <input type="text" name="protocol_{{ loop.index }}" value="{{ rule.protocol }}"><br>
+
+                <!-- İşlem Seçimi (Allow/Block) -->
+                <label for="action_{{ loop.index }}">İşlem:</label>
+                <select name="action_{{ loop.index }}">
+                    <option value="allow" {% if rule.action == "allow" %}selected{% endif %}>Allow</option>
+                    <option value="block" {% if rule.action == "block" %}selected{% endif %}>Block</option>
+                </select><br>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <button type="submit">Güncelle</button>
+    </form>
+</body>
+</html>
